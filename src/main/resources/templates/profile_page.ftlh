@@ -10,10 +10,11 @@
 <body>
 <main>
     <a href="/logout">Log out</a>
-    <h1>Welcome!</h1>
+    <h1>Welcome! ${user.email}</h1>
     <#if userRole=="ADMIN">
-        <a href="/admin">adminka</a>
+        <a href="/admin">admin panel</a>
     </#if>
+    <a href="/addCar">add car</a>
     <p>Your car(s)</p>
     <table>
         <tr>
@@ -23,7 +24,7 @@
             <th>mileage</th>
             <th>color</th>
         </tr>
-        <#if (cars?size > 1)>
+        <#if (cars?size > 0)>
             <#list cars as car>
                 <tr>
                     <td>${car.brand}</td>
@@ -33,6 +34,7 @@
                     <td>${car.color}</td>
                 </tr>
             </#list>
+            <#else>you don't have a car
         </#if>
     </table>
 </main>

@@ -1,6 +1,8 @@
 package org.jetbrains.homework_2sem.controllers;
 
 
+import org.jetbrains.homework_2sem.dto.UserDto;
+import org.jetbrains.homework_2sem.services.UsersService;
 import org.springframework.ui.Model;
 import org.jetbrains.homework_2sem.dto.CarDto;
 import org.jetbrains.homework_2sem.secutity.details.UserDetailsImpl;
@@ -16,6 +18,9 @@ import java.util.List;
 public class ProfileController {
 
     @Autowired
+    private UsersService usersService;
+
+    @Autowired
     private CarService carService;
 
 
@@ -25,6 +30,9 @@ public class ProfileController {
         String userRole = userDetails.getAuthorities().iterator().next().getAuthority();
         List<CarDto> userCars = carService.getByUser(userDetails.getUser().getId());
 
+        UserDto user = UserDto.from(userDetails.getUser());
+
+        model.addAttribute("user", user);
         model.addAttribute("userRole", userRole);
         model.addAttribute("cars", userCars);
 
